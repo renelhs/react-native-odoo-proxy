@@ -1,5 +1,4 @@
 from flask import Flask, request, jsonify, make_response
-
 from auth import check_odoo_login
 
 app = Flask(__name__)
@@ -16,18 +15,14 @@ def login():
     Manage app login
     :return: True or False
     """
-    try:
-        data = request.get_json()
+    data = request.get_json()
 
-        if data['host'] and data['port'] and data['database'] and data['username'] and data['password']:
-            check_login = check_odoo_login(data)
+    if data['host'] and data['port'] and data['database'] and data['username'] and data['password']:
+        response = check_odoo_login(data, 'login')
 
-            if check_login:
-                return make_response(jsonify({"message": "Login success"}), 200)
-            else:
-                return make_response(jsonify({"message": "Login error"}), 500)
-    except Exception:
-        return make_response(jsonify({"message": "Invalid data provided"}), 500)
+        return make_response(jsonify({"message": response[0]}), response[1])
+    else:
+        return make_response(jsonify({"message": "Unauthorized - 401"}), 401)
 
 
 @app.route('/api/call_kw/', methods=['POST'])
@@ -42,21 +37,21 @@ def call_kw():
         data = request.get_json()
 
         if data['host'] and data['port'] and data['database'] and data['username'] and data['password']:
-            odoo = check_odoo_login(data)
+            response = check_odoo_login(data, 'call_kw')
 
             if data['options']:
                 options = data['options']
 
-            if odoo and data['model'] and data['method']:
-                response = odoo.execute(data['model'], data['method'], options)
+            if response and data['model'] and data['method']:
+                result = response.execute(data['model'], data['method'], options)
 
-                return make_response(jsonify({"message": "Response success", "response": response}), 200)
+                return make_response(jsonify({"message": "Response success - 200", "response": result}), 200)
             else:
-                return make_response(jsonify({"message": "Server error"}), 500)
+                return make_response(jsonify({"message": response[0]}), response[1])
         else:
-            return make_response(jsonify({"message": "Invalid data provided"}), 500)
+            return make_response(jsonify({"message": "Unauthorized - 401"}), 401)
     except Exception:
-        return make_response(jsonify({"message": "Invalid data provided"}), 500)
+        return make_response(jsonify({"message": "Not Implemented - 501"}), 501)
 
 
 if __name__ == "__main__":
