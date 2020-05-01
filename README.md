@@ -61,4 +61,6 @@ fetch(url, {
 ### Check if the app is working
 
 After you run the Flask server:
-###### Access app in http://0.0.0.0:8080 you would see "Server Works!"
+###### Access app in http://0.0.0.0:8080 you would see "Proxy Server Works!"
+Error connecting to Odoo server:
+###### In case of fail connection, additionally to the previous message you would see another so you can check de configuration or the server you are trying to reach.  

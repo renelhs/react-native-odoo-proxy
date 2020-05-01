@@ -1,12 +1,19 @@
 from flask import Flask, request, jsonify, make_response
-from auth import check_odoo_login
+from auth import check_odoo_alive, check_odoo_login
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def index():
-    return 'Server Works!'
+    message = "Proxy Server Works!"
+    response = check_odoo_alive()
+
+    if type(response) == list and '502' in response[0]:
+        message += ". There is an error trying to connect Odoo Server, check if Odoo is running " \
+                   "and proxy configurations HOST and/or PORT are correct."
+
+    return message
 
 
 @app.route('/api/login/', methods=['POST'])
