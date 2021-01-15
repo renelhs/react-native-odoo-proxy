@@ -46,7 +46,7 @@ def call_kw():
         if data['host'] and data['port'] and data['database'] and data['username'] and data['password']:
             response = check_odoo_login(data, 'call_kw')
 
-            if data['options']:
+            if 'options' in data:
                 options = data['options']
 
             if response and data['model'] and data['method']:
