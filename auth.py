@@ -1,14 +1,15 @@
+import os
 import odoorpc
-
-# Configure your Odoo server HOST and PORT
-ODOO_HOST = '127.0.0.1'
-ODOO_PORT = 8069
 
 
 def check_odoo_alive():
+    odoo_host = os.getenv("HOST")
+    odoo_port = os.getenv("PORT")
+
     try:
-        return odoorpc.ODOO(ODOO_HOST, port=ODOO_PORT, timeout=60)
-    except Exception:
+        return odoorpc.ODOO(odoo_host, port=int(odoo_port))
+    except Exception as e:
+        print('ERROR Checking alive:', e)
         return ['Bad Gateway - 502', 502]
 
 

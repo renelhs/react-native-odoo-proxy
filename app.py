@@ -1,5 +1,8 @@
 from flask import Flask, request, jsonify, make_response
 from auth import check_odoo_alive, check_odoo_login
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 
