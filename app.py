@@ -27,7 +27,7 @@ def login():
     """
     data = request.get_json()
 
-    if data['host'] and data['port'] and data['database'] and data['username'] and data['password']:
+    if data['database'] and data['username'] and data['password']:
         response = check_odoo_login(data, 'login')
 
         return make_response(jsonify({"message": response[0]}), response[1])

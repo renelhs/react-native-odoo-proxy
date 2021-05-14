@@ -32,10 +32,12 @@ Create .env file on the root of the project
 
 ###### touch .env
 
-Add the following lines
+Add the following lines (change values if you need)
 
-###### HOST=127.0.0.1 (or your Odoo host)
-###### PORT=8069 (or your Odoo port)
+```
+HOST=127.0.0.1
+PORT=8069
+```
 
 ### Check if the app is working
 
@@ -74,3 +76,7 @@ fetch(url, {
     console.log(error);
 });
 ```
+
+### External docs of how to run in production environments:
+
+https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-uswgi-and-nginx-on-ubuntu-18-04
