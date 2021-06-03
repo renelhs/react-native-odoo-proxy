@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  {% block title %}Proxy Server Works!{% endblock %}
+{% endblock %}
+
+{% block content %}
+    {% if message %}
+      <p style="color: red">{{ message }}</p>
+    {% endif %}
+{% endblock %}

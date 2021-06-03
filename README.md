@@ -28,8 +28,10 @@ to Odoo.
 
 ## Configurations
 
-Create .env file on the root of the project
+Create log file for the proxy (bellow, example route and name)
+###### touch /var/log/react-native-odoo-proxy.log
 
+Create .env file on the root of the project
 ###### touch .env
 
 Add the following lines (change values if you need)
@@ -37,12 +39,16 @@ Add the following lines (change values if you need)
 ```
 HOST=127.0.0.1
 PORT=8069
+SHOW_LOGS=False
+NUMBER_LOGS_LINES=100
+PROXY_LOG_FILE=/var/log/react-native-odoo-proxy.log
+ODOO_LOG_FILE=/[your-odoo-log-directory]/odoo.log
 ```
 
 ### Check if the app is working
 
 After you run the Flask server:
-###### Access app in http://0.0.0.0:8080 you would see "Proxy Server Works!"
+###### Access app in http://0.0.0.0:8080 you would see a template with "Proxy Server Works!"
 Error connecting to Odoo server:
 ###### In case of fail connection, additionally to the previous message you would see another, so you can check the configuration, or the server you are trying to reach.  
 

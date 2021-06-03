@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  {% block title %}{{ log_type }} Logs {% endblock %}
+{% endblock %}
+
+{% block content %}
+    {% if logs_data %}
+        {% for log in logs_data %}
+            <div class="collection-item">{{ log }}</div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

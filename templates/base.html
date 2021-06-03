@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %} - React Native Odoo Proxy</title>
+
+    <!-- CSS  -->
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
+
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<main class="container">
+    <div class="container">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+                <span class="fs-4">React Native Odoo Proxy</span><span class="p-0" style="margin-left: 5px; font-weight: bold">2.0</span>
+            </a>
+
+            {% if config['SHOW_LOGS'] == 'True' %}
+                <ul class="nav nav-pills">
+                    <li class="nav-item"><a href="/proxy-logs" class="nav-link">Proxy Logs</a></li>
+                    <li class="nav-item"><a href="/odoo-logs" class="nav-link">Odoo Logs</a></li>
+                </ul>
+            {% endif %}
+        </header>
+    </div>
+
+    <div class="bg-light p-5 rounded">
+        <h3>
+            {% block header %}{% endblock %}
+        </h3>
+
+        <div class="divider"></div>
+
+        {% block content %}{% endblock %}
+    </div>
+</main>
+
+<script type="text/javascript" src="{{url_for ('static', filename='js/bootstrap.bundle.min.js')}} "></script>
+</body>
+</html>
