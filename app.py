@@ -9,8 +9,6 @@ load_dotenv()
 app = Flask(__name__)
 app.config['SHOW_LOGS'] = os.getenv("SHOW_LOGS")
 
-# show_logs = os.getenv("SHOW_LOGS")
-
 if app.config['SHOW_LOGS'] == 'True':
     proxy_log_file = os.getenv("PROXY_LOG_FILE")
     logging.basicConfig(filename=proxy_log_file, level=logging.DEBUG,
@@ -86,10 +84,13 @@ def build_logs(file_url):
     """Creates logging information"""
     number_logs_lines = int(os.getenv("NUMBER_LOGS_LINES"))
 
-    with open(file_url) as f:
-        logs = f.readlines()[-number_logs_lines:]
+    try:
+        with open(file_url) as f:
+            logs = f.readlines()[-number_logs_lines:]
 
-    return logs
+        return logs
+    except IOError:
+        return ['Log file not found, check your configuration file.']
 
 
 @app.route('/proxy-logs')
@@ -108,6 +109,7 @@ def odoo_logs():
     """Returns odoo logging information"""
     if app.config['SHOW_LOGS'] == 'True':
         log_file = os.getenv("ODOO_LOG_FILE")
+
         return render_template('logs.html', log_type="Odoo", logs_data=build_logs(log_file))
 
     return render_template('no_debug.html')
