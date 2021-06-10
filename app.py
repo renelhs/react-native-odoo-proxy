@@ -17,9 +17,6 @@ if app.config['SHOW_LOGS'] == 'True':
 
 @app.route('/')
 def index():
-    app.logger.info('Info level home')
-    app.logger.warning('Warning level home')
-    app.logger.error('Error level home')
     message = ""
     response = check_odoo_alive()
 
@@ -52,9 +49,6 @@ def call_kw():
     Manage call to methods in Odoo
     :return: Response
     """
-    app.logger.info('Info level call Odoo')
-    app.logger.warning('Warning level call Odoo')
-    app.logger.error('Error level call Odoo')
     options = []
 
     try:
@@ -70,14 +64,14 @@ def call_kw():
             if response and data['model'] and data['method']:
                 result = response.execute(data['model'], data['method'], options)
 
-                return make_response(jsonify({"message": "Response success - 200",
-                                              "response": result}), 200)
+                return jsonify(message="Response success - 200", response=result)
+
             else:
-                return make_response(jsonify({"message": response[0]}), response[1])
+                return jsonify(message=response)
         else:
-            return make_response(jsonify({"message": "Unauthorized - 401"}), 401)
+            return make_response(jsonify(message="Unauthorized - 401"), 401)
     except Exception:
-        return make_response(jsonify({"message": "Not Implemented - 501"}), 501)
+        return make_response(jsonify(message="Not Implemented - 501"), 501)
 
 
 def build_logs(file_url):
