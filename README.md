@@ -31,19 +31,8 @@ to Odoo.
 Create log file for the proxy (bellow, example route and name)
 ###### touch /var/log/react-native-odoo-proxy.log
 
-Create .env file on the root of the project
-###### touch .env
-
-Add the following lines (change values if you need)
-
-```
-HOST=127.0.0.1
-PORT=8069
-SHOW_LOGS=False
-NUMBER_LOGS_LINES=100
-PROXY_LOG_FILE=/var/log/react-native-odoo-proxy.log
-ODOO_LOG_FILE=/[your-odoo-log-directory]/odoo.log
-```
+Create .env file from the example (change values if you need)
+###### cp .env.example .env2
 
 ### Check if the app is working
 
@@ -85,4 +74,4 @@ fetch(url, {
 
 ### External docs of how to run in production environments:
 
-https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-uswgi-and-nginx-on-ubuntu-18-04
+https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-uwsgi-and-nginx-on-ubuntu-22-04

@@ -1,5 +1,6 @@
 import os
 import logging
+
 from flask import Flask, request, jsonify, make_response, render_template
 from auth import check_odoo_alive, check_odoo_login
 from dotenv import load_dotenv
